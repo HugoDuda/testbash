@@ -3,7 +3,7 @@
 function test () {
     echo -e "\n\n\n\e[1;36m---------[ERROR MANAGER]---------\n\e[0m"; sleep 0.1
 
-    echo -e "\n\e[1;0m--[Robustness - Opening valid file]--\n\e[0m"; sleep 0.05
+    echo -e "\n\e[1;33m--[Robustness - Opening valid file]--\n\e[0m"; sleep 0.05
 
     echo -e "\e[1;37mTest n°1 (Bad character) :" ; sleep 0.05
     ./setting_up bash_test/bad_caracter_map
@@ -60,7 +60,7 @@ function test () {
     fi
     rm return.txt
 
-    echo -e "\n\n\n\e[1;0m--[Robustness - Generating valid board]--\n\n\e[0m"; sleep 0.1
+    echo -e "\n\n\n\e[1;33m--[Robustness - Generating valid board]--\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°1 (Alpha-numeric size) :" ; sleep 0.05
     ./setting_up a ..o..o
@@ -219,9 +219,119 @@ function test () {
     fi
     rm test_bash_log.txt
 
-    echo -e "\e[1;37mtest n°10 (intermediate_map_100_100) :"; sleep 0.1
+    echo -e "\e[1;37mtest n°11 (intermediate_map_100_100) :"; sleep 0.1
     ./setting_up example_files/maps/intermediate_map_100_100 > test_bash_log.txt
     sdiff -s test_bash_log.txt example_files/solved/intermediate_map_100_100
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°12 (intermediate_map_187_187_empty) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_187_187_empty > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_187_187_empty
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°13 (intermediate_map_187_187_filled) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_187_187_filled > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_187_187_filled
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°14 (intermediate_map_187_187_with_obstacles_25pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_187_187_with_obstacles_25pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_187_187_with_obstacles_25pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°15 (intermediate_map_187_187_with_obstacles_50pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_187_187_with_obstacles_50pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_187_187_with_obstacles_50pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°16 (intermediate_map_187_187_with_obstacles_75pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_187_187_with_obstacles_75pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_187_187_with_obstacles_75pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°17 (intermediate_map_200_200) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_200_200 > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_200_200
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°18 (intermediate_map_500_500) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_500_500 > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_500_500
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°19 (intermediate_map_500_500_2) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_500_500_2 > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_500_500_2
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°20 (intermediate_map_500_500_3) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_500_500_3 > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_500_500_3
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°21 (intermediate_map_1000_1000) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_1000_1000 > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_1000_1000
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°22 (intermediate_map_1000_1000_2) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_1000_1000_2 > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_1000_1000_2
     if [ $? -eq 0 ]; then
         echo -e "\e[1;32mSUCESS\n\e[0m"
     else
