@@ -1,0 +1,5 @@
+add WIRE a, WIRE d, WIRE e, WIRE c, WIRE b
+disp
+sort NAME -r
+disp
+exit

@@ -1,0 +1,3 @@
+add WIRE name
+del 0
+exit
