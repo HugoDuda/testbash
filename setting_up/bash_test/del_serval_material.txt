@@ -1,3 +1,0 @@
-add WIRE name, SENSOR name2
-del 0, 1
-exit

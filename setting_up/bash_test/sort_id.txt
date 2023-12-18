@@ -1,5 +1,0 @@
-add SENSOR a, WIRE d, ACTUATOR e, DEVICE c, PROCESSOR b
-disp
-sort ID
-disp
-exit
