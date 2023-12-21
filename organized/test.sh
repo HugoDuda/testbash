@@ -144,7 +144,7 @@ function test () {
 
     echo -e "\e[1;37mTest n°1 (100 material) :"; sleep 0.1
     cat bash_test/check100.txt | timeout 0.5s ./organized > test_bash_log.txt 
-    sdiff -s test_bash_log.txt bash_test/check100_solved.txt
+    sdiff -s test_bash_log.txt bash_test/check100_solved.txt > /dev/null
     if [ $? -eq 0 ]; then
         echo -e "\e[1;32mSUCESS\n\e[0m"
         ((i++))
@@ -155,7 +155,7 @@ function test () {
 
     echo -e "\e[1;37mTest n°2 (500 material) :"; sleep 0.1
     cat bash_test/check500.txt | timeout 0.5s ./organized > test_bash_log.txt 
-    sdiff -s test_bash_log.txt bash_test/check500_solved.txt
+    sdiff -s test_bash_log.txt bash_test/check500_solved.txt > /dev/null
     if [ $? -eq 0 ]; then
         echo -e "\e[1;32mSUCESS\n\e[0m"
         ((i++))
@@ -166,7 +166,7 @@ function test () {
 
     echo -e "\e[1;37mTest n°3 (1000 material) :"; sleep 0.1
     cat bash_test/check1000.txt | timeout 0.5s ./organized > test_bash_log.txt 
-    sdiff -s test_bash_log.txt bash_test/check1000_solved.txt
+    sdiff -s test_bash_log.txt bash_test/check1000_solved.txt > /dev/null
     if [ $? -eq 0 ]; then
         echo -e "\e[1;32mSUCESS\n\e[0m"
         ((i++))
