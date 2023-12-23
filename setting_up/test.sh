@@ -338,6 +338,146 @@ function test () {
         echo -e "\e[1;31mFAILURE\n\e[0m"
     fi
     rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°23 (intermediate_map_empty_corners) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_empty_corners > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_empty_corners
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°24 (intermediate_map_filled_corners) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_filled_corners > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_filled_corners
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°25 (intermediate_map_one_column_with_obstacles_25pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_column_with_obstacles_25pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_column_with_obstacles_25pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°26 (intermediate_map_one_column_with_obstacles_50pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_column_with_obstacles_50pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_column_with_obstacles_50pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°27 (intermediate_map_one_column_with_obstacles_75pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_column_with_obstacles_75pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_column_with_obstacles_75pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°28 (intermediate_map_one_empty_box) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_empty_box > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_empty_box
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°29 (intermediate_map_one_empty_column) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_empty_column > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_empty_column
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°30 (intermediate_map_one_empty_line) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_empty_line > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_empty_line
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°31 (intermediate_map_one_filled_box) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_filled_box > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_filled_box
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°32 (intermediate_map_one_filled_column) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_filled_column > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_filled_column
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°33 (intermediate_map_one_filled_line) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_filled_line > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_filled_line
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°34 (intermediate_map_one_line_with_obstacles_25pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_line_with_obstacles_25pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_line_with_obstacles_25pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°35 (intermediate_map_one_line_with_obstacles_50pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_line_with_obstacles_50pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_line_with_obstacles_50pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
+
+    echo -e "\e[1;37mtest n°36 (intermediate_map_one_line_with_obstacles_75pc) :"; sleep 0.1
+    ./setting_up example_files/maps/intermediate_map_one_line_with_obstacles_75pc > test_bash_log.txt
+    sdiff -s test_bash_log.txt example_files/solved/intermediate_map_one_line_with_obstacles_75pc
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm test_bash_log.txt
 }
 
 make re
