@@ -81,6 +81,32 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
+    echo -e "\e[1;37mTest n°5 (Segmentation fault (core dump)) :"; sleep 0.1
+    echo -e "./bashtest/segv" | ./mysh 2> bashtest/mysh.txt
+    echo -e "./bashtest/segv" | tcsh 2> bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
+    echo -e "\e[1;37mTest n°6 (Floating execption (core dump)) :"; sleep 0.1
+    echo -e "./bashtest/float" | ./mysh 2> bashtest/mysh.txt
+    echo -e "./bashtest/float" | tcsh 2> bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
     echo -e "\n\n\n\e[1;36m-------------------------[BUILTIN CD]-------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°1 (cd) :"; sleep 0.1
@@ -344,7 +370,7 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\e[1;37mTest n°4 (./) :"; sleep 0.1
+    echo -e "\e[1;37mTest n°5 (./) :"; sleep 0.1
     echo -e "./" | ./mysh 2> bashtest/mysh.txt
     echo -e "./" | tcsh 2> bashtest/tcsh.txt
     sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
