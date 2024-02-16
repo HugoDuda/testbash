@@ -3,7 +3,7 @@
 function test () {
 
     i=0
-    echo -e "\n\n\n\e[1;36m------------------------[BUILD CHECKING]------------------------\n\e[0m"; sleep 0.1
+    echo -e "\n\n\e[1;36m------------------------[BUILD CHECKING]------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mBuild :" ; sleep 0.05
     make re > /dev/null 2> /dev/null
@@ -14,7 +14,7 @@ function test () {
         exit 0
     fi
 
-    echo -e "\n\n\n\e[1;36m-------------------------[BASE TEST]-------------------------\n\e[0m"; sleep 0.1
+    echo -e "\n\n\e[1;36m-------------------------[BASE TEST]-------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°0 (nothing) :"; sleep 0.1
     echo -e "" | ./mysh > bashtest/mysh.txt
@@ -107,7 +107,7 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\n\n\n\e[1;36m-------------------------[BUILTIN CD]-------------------------\n\e[0m"; sleep 0.1
+    echo -e "\n\n\e[1;36m-------------------------[BUILTIN CD]-------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°1 (cd) :"; sleep 0.1
     echo -e "cd" | ./mysh
@@ -154,7 +154,7 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\n\n\n\e[1;36m-------------------------[BUILTIN EXIT]-------------------------\n\e[0m"; sleep 0.1
+    echo -e "\n\n\e[1;36m-------------------------[BUILTIN EXIT]-------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°1 (exit) :"; sleep 0.1
     echo -e "exit" | ./mysh > bashtest/mysh.txt
@@ -170,7 +170,7 @@ function test () {
     rm bashtest/mysh.txt
 
     echo -e "\e[1;37mTest n°2 (exit 84) :"; sleep 0.1
-    echo -e "exit 84" | ./mysh 
+    echo -e "exit 84" | ./mysh
     echo $? > bashtest/mysh.txt
     echo -e "exit 84" | tcsh 
     echo $? > bashtest/tcsh.txt
@@ -184,7 +184,70 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\n\n\n\e[1;36m-------------------------[TABS AND SPACES]-------------------------\n\e[0m"; sleep 0.1
+    echo -e "\n\n\e[1;36m-------------------------[BUILTIN ENV]-------------------------\n\e[0m"; sleep 0.1
+
+    echo -e "\e[1;37mTest n°1 (env) :"; sleep 0.1
+    echo -e "env" | ./mysh | grep -v "^_" | sort > bashtest/mysh.txt
+    env | grep -v "^_" | sort > bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
+    echo -e "\n\n\e[1;36m-------------------------[BUILTIN UNSETENV]-------------------------\n\e[0m"; sleep 0.1
+
+    echo -e "\e[1;37mTest n°1 (unsetenv) :"; sleep 0.1
+    echo -e "env" | ./mysh | grep -v "^_" | sort > bashtest/mysh.txt
+    env | grep -v "^_" | sort > bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        rm bashtest/tcsh.txt
+        rm bashtest/mysh.txt
+        (echo -e "unsetenv OLDPWD" && echo -e "env") | ./mysh > bashtest/mysh.txt
+        grep "OLDPWD=" bashtest/mysh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+        fi
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/mysh.txt
+
+    echo -e "\e[1;37mTest n°2 (unsetenv and exeve) :"; sleep 0.1
+    (echo -e "unsetenv TERM" && echo -e "clear") | ./mysh 2> bashtest/mysh.txt
+    (echo -e "unsetenv TERM" && echo -e "clear") | tcsh 2> bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
+    echo -e "\n\n\e[1;36m-------------------------[BUILTIN SETENV]-------------------------\n\e[0m"; sleep 0.1
+
+    echo -e "\e[1;37mTest n°1 (setenv) :"; sleep 0.1
+    (echo -e "setenv bonjour jesuisuntest" && echo -e "env") | ./mysh > bashtest/mysh.txt
+    grep "bonjour=jesuisuntest" bashtest/mysh.txt > /dev/null
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/mysh.txt
+
+    echo -e "\n\n\e[1;36m-------------------------[TABS AND SPACES]-------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°1 (ls space) :"; sleep 0.1
     echo -e "ls " | ./mysh > bashtest/mysh.txt
@@ -277,7 +340,7 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\e[1;37mTest n°8 (ls tabs spaces) :"; sleep 0.1
+    echo -e "\e[1;37mTest n°8 (ls tab space) :"; sleep 0.1
     echo -e "ls  \t \t     \t    \t \t\t" | ./mysh > bashtest/mysh.txt
     echo -e "ls  \t \t     \t    \t \t\t" | tcsh > bashtest/tcsh.txt
     sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
@@ -316,7 +379,7 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\n\n\n\e[1;36m-------------------------[ROBUSTNESS]-------------------------\n\e[0m"; sleep 0.1
+    echo -e "\n\n\e[1;36m-------------------------[ROBUSTNESS]-------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°1 (random command) :"; sleep 0.1
     echo -e "hgfrertyh" | ./mysh 2> bashtest/mysh.txt
