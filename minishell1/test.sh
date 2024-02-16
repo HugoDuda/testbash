@@ -277,7 +277,7 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\e[1;37mTest n°8 (ls tab space) :"; sleep 0.1
+    echo -e "\e[1;37mTest n°8 (ls tabs spaces) :"; sleep 0.1
     echo -e "ls  \t \t     \t    \t \t\t" | ./mysh > bashtest/mysh.txt
     echo -e "ls  \t \t     \t    \t \t\t" | tcsh > bashtest/tcsh.txt
     sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
