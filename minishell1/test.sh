@@ -14,6 +14,64 @@ function test () {
         exit 0
     fi
 
+    echo -e "\n\n\e[1;36m------------------------[VALGRIND CHECKING]------------------------\n\e[0m"; sleep 0.1
+
+    echo -e "\e[1;37mTest n°1 (nothing) :";
+    echo -e "" | valgrind --leak-check=full --show-leak-kinds=all ./mysh > bashtest/valgrind_output/nothing.txt 2>&1
+    if grep -q "ERROR SUMMARY: 0 errors" bashtest/valgrind_output/nothing.txt; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE (Check output in valgrind_output)\n\e[0m"
+    fi
+
+    echo -e "\e[1;37mTest n°2 (ls) :";
+    echo -e "ls" | valgrind --leak-check=full --show-leak-kinds=all ./mysh > bashtest/valgrind_output/ls.txt 2>&1
+    if grep -q "ERROR SUMMARY: 0 errors" bashtest/valgrind_output/ls.txt; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE (Check output in valgrind_output)\n\e[0m"
+    fi
+
+    echo -e "\e[1;37mTest n°3 (pwd) :";
+    echo -e "ls" | valgrind --leak-check=full --show-leak-kinds=all ./mysh > bashtest/valgrind_output/pwd.txt 2>&1
+    if grep -q "ERROR SUMMARY: 0 errors" bashtest/valgrind_output/pwd.txt; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE (Check output in valgrind_output)\n\e[0m"
+    fi
+
+    echo -e "\e[1;37mTest n°4 (cd) :";
+    echo -e "cd" | valgrind --leak-check=full --show-leak-kinds=all ./mysh > bashtest/valgrind_output/cd.txt 2>&1
+    if grep -q "ERROR SUMMARY: 0 errors" bashtest/valgrind_output/cd.txt; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE (Check output in valgrind_output)\n\e[0m"
+    fi
+
+    echo -e "\e[1;37mTest n°5 (env) :";
+    echo -e "env" | valgrind --leak-check=full --show-leak-kinds=all ./mysh > bashtest/valgrind_output/env.txt 2>&1
+    if grep -q "ERROR SUMMARY: 0 errors" bashtest/valgrind_output/env.txt; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE (Check output in valgrind_output)\n\e[0m"
+    fi
+
+    echo -e "\e[1;37mTest n°6 (setenv) :";
+    echo -e "setenv a" | valgrind --leak-check=full --show-leak-kinds=all ./mysh > bashtest/valgrind_output/setenv.txt 2>&1
+    if grep -q "ERROR SUMMARY: 0 errors" bashtest/valgrind_output/setenv.txt; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE (Check output in valgrind_output)\n\e[0m"
+    fi
+
+    echo -e "\e[1;37mTest n°7 (unsetenv) :";
+    echo -e "unsetenv PATH" | valgrind --leak-check=full --show-leak-kinds=all ./mysh > bashtest/valgrind_output/unsetenv.txt 2>&1
+    if grep -q "ERROR SUMMARY: 0 errors" bashtest/valgrind_output/unsetenv.txt; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+    else
+        echo -e "\e[1;31mFAILURE (Check output in valgrind_output)\n\e[0m"
+    fi
+
     echo -e "\n\n\e[1;36m-------------------------[BASE TEST]-------------------------\n\e[0m"; sleep 0.1
 
     echo -e "\e[1;37mTest n°0 (nothing) :"; sleep 0.1
@@ -369,6 +427,32 @@ function test () {
     echo -e "\e[1;37mTest n°10 (ls tabs spaces -l) :"; sleep 0.1
     echo -e "ls  \t\t \t -l" | ./mysh > bashtest/mysh.txt
     echo -e "ls  \t\t \t -l" | tcsh > bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
+    echo -e "\e[1;37mTest n°11 (space) :"; sleep 0.1
+    echo -e " " | ./mysh > bashtest/mysh.txt
+    echo -e " " | tcsh > bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
+    echo -e "\e[1;37mTest n°12 (tab) :"; sleep 0.1
+    echo -e "\t" | ./mysh > bashtest/mysh.txt
+    echo -e "\t" | tcsh > bashtest/tcsh.txt
     sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
     if [ $? -eq 0 ]; then
         echo -e "\e[1;32mSUCESS\n\e[0m"

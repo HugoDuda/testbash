@@ -1,0 +1,14 @@
+==75584== Memcheck, a memory error detector
+==75584== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==75584== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==75584== Command: ./mysh
+==75584== 
+==75584== 
+==75584== HEAP SUMMARY:
+==75584==     in use at exit: 0 bytes in 0 blocks
+==75584==   total heap usage: 312 allocs, 312 frees, 12,211 bytes allocated
+==75584== 
+==75584== All heap blocks were freed -- no leaks are possible
+==75584== 
+==75584== For lists of detected and suppressed errors, rerun with: -s
+==75584== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
