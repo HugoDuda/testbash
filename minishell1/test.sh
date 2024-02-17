@@ -420,7 +420,20 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\e[1;37mTest n°4 (alphanumerique exit) :"; sleep 0.1
+    echo -e "\e[1;37mTest n°4 (cd too many arg) :"; sleep 0.1
+    echo -e "cd abc efg" | ./mysh 2> bashtest/mysh.txt
+    echo -e "cd abc efg" | tcsh 2> bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
+    echo -e "\e[1;37mTest n°5 (alphanumerique exit) :"; sleep 0.1
     echo -e "exit abc" | ./mysh 2> bashtest/mysh.txt
     echo -e "exit abc" | tcsh 2> bashtest/tcsh.txt
     sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
@@ -433,9 +446,22 @@ function test () {
     rm bashtest/tcsh.txt
     rm bashtest/mysh.txt
 
-    echo -e "\e[1;37mTest n°5 (./) :"; sleep 0.1
+    echo -e "\e[1;37mTest n°6 (./) :"; sleep 0.1
     echo -e "./" | ./mysh 2> bashtest/mysh.txt
     echo -e "./" | tcsh 2> bashtest/tcsh.txt
+    sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+    if [ $? -eq 0 ]; then
+        echo -e "\e[1;32mSUCESS\n\e[0m"
+        ((i++))
+    else
+        echo -e "\e[1;31mFAILURE\n\e[0m"
+    fi
+    rm bashtest/tcsh.txt
+    rm bashtest/mysh.txt
+
+    echo -e "\e[1;37mTest n°7 (setenv too many arg) :"; sleep 0.1
+    echo -e "setenv a b c" | ./mysh 2> bashtest/mysh.txt
+    echo -e "setenv a b c" | tcsh 2> bashtest/tcsh.txt
     sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
     if [ $? -eq 0 ]; then
         echo -e "\e[1;32mSUCESS\n\e[0m"
