@@ -1,0 +1,28 @@
+==108== Memcheck, a memory error detector
+==108== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==108== Using Valgrind-3.21.0 and LibVEX; rerun with -h for copyright info
+==108== Command: ./mysh
+==108== 
+bashtest
+coding-style-reports.log
+float
+include
+main.c
+Makefile
+mysh
+obj
+return
+segv
+src
+tester.sh
+tests
+test.sh
+==108== 
+==108== HEAP SUMMARY:
+==108==     in use at exit: 0 bytes in 0 blocks
+==108==   total heap usage: 69 allocs, 69 frees, 7,360 bytes allocated
+==108== 
+==108== All heap blocks were freed -- no leaks are possible
+==108== 
+==108== For lists of detected and suppressed errors, rerun with: -s
+==108== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
