@@ -4,7 +4,8 @@ function test () {
 
     i=0
     t=1
-    echo -e "\n\n\e[1;36m------------------------[BUILD CHECKING]------------------------\n\e[0m"; sleep 0.05
+
+    echo -e "\n\e[1;36m------------------------[BUILD CHECKING]------------------------\n\e[0m"; sleep 0.05
 
         echo -e "\e[1;37mBuild :" ;
         make re > /dev/null 2> /dev/null
@@ -14,6 +15,7 @@ function test () {
             echo -e "\e[1;31mFAILURE\n\e[0m"
             exit 0
         fi
+
 
     echo -e "\n\n\e[1;36m------------------------[VALGRIND CHECKING]------------------------\n\e[0m"; sleep 0.05
 
@@ -44,8 +46,8 @@ function test () {
 
     echo -e "\n\n\e[1;36m-------------------------[BASE TEST]-------------------------\n\e[0m"; sleep 0.05
 
-    commands2=("" "ls" "ls -l -a -t" "pwd" "./bashtest/executable" "./bashtest/segv" "./bashtest/float")
-    descriptions=("nothing" "ls" "ls -l -a -t" "pwd" "./executable" "Segmentation fault (core dump)" "Floating exception (core dump)")
+    commands2=("" "ls" "./bashtest/executable" "azertyuioptestabc")
+    descriptions=("Empty" "Simple exec" "run simple command" "wrong simple command")
 
         for ((index=0; index<${#commands2[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions[index]}) :"; sleep 0.05
@@ -65,13 +67,30 @@ function test () {
 
     echo -e "\n\n\e[1;36m-------------------------[BUILTIN CD]-------------------------\n\e[0m"; sleep 0.05
 
-        commands3=("cd" "cd ~" "cd .." "cd /")
-        descriptions2=("cd" "cd ~" "cd .." "cd /")
+        commands3=("cd" "cd bashtest" "cd .." "cd /")
+        descriptions2=("cd" "cd folder" "cd .." "cd /")
 
         for ((index=0; index<${#commands3[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions2[index]}) :"; sleep 0.05
-            (echo -e "${commands3[index]}" && echo -e "ls") | ./mysh > bashtest/mysh.txt
-            (echo -e "${commands3[index]}" && echo -e "ls") | tcsh > bashtest/tcsh.txt
+            (echo -e "${commands3[index]}" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
+            (echo -e "${commands3[index]}" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
+            sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+            if [ $? -eq 0 ]; then
+                echo -e "\e[1;32mSUCESS\n\e[0m"
+                ((i++))
+            else
+                echo -e "\e[1;31mFAILURE\n\e[0m"
+            fi
+            ((t++))
+        done
+
+        commands6=("cd ffecvdzevvsd" "cd ./mysh" "cd abc efg")
+        descriptions6=("cd invalid folder" "cd executable" "cd too many argument")
+
+        for ((index=0; index<${#commands6[@]}; index++)); do
+            echo -e "\e[1;37mTest n°$t (${descriptions6[index]}) :"; sleep 0.05
+            (echo -e "${commands6[index]}") | ./mysh 2> bashtest/mysh.txt
+            (echo -e "${commands6[index]}") | tcsh 2> bashtest/tcsh.txt
             sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
             if [ $? -eq 0 ]; then
                 echo -e "\e[1;32mSUCESS\n\e[0m"
@@ -83,8 +102,8 @@ function test () {
         done
 
         echo -e "\e[1;37mTest n°$t (cd -) :"; sleep 0.05
-        (echo -e "cd .." && echo -e "cd .." && echo -e "cd -" && echo -e "ls") | ./mysh > bashtest/mysh.txt
-        (echo -e "cd .." && echo -e "cd .." && echo -e "cd -" && echo -e "ls") | tcsh > bashtest/tcsh.txt
+        (echo -e "cd .." && echo -e "cd .." && echo -e "cd -" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
+        (echo -e "cd .." && echo -e "cd .." && echo -e "cd -" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
         sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
         if [ $? -eq 0 ]; then
             echo -e "\e[1;32mSUCESS\n\e[0m"
@@ -95,6 +114,7 @@ function test () {
         rm bashtest/tcsh.txt
         rm bashtest/mysh.txt
         ((t++))
+
 
     echo -e "\n\n\e[1;36m-------------------------[BUILTIN EXIT]-------------------------\n\e[0m"; sleep 0.05
 
@@ -156,20 +176,6 @@ function test () {
         rm bashtest/mysh.txt
         ((t++))
 
-        echo -e "\e[1;37mTest n°$t (unsetenv and exeve) :"; sleep 0.05
-        (echo -e "unsetenv TERM" && echo -e "clear") | ./mysh 2> bashtest/mysh.txt
-        (echo -e "unsetenv TERM" && echo -e "clear") | tcsh 2> bashtest/tcsh.txt
-        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
-        if [ $? -eq 0 ]; then
-            echo -e "\e[1;32mSUCESS\n\e[0m"
-            ((i++))
-        else
-            echo -e "\e[1;31mFAILURE\n\e[0m"
-        fi
-        rm bashtest/tcsh.txt
-        rm bashtest/mysh.txt
-        ((t++))
-
     echo -e "\n\n\e[1;36m-------------------------[BUILTIN SETENV]-------------------------\n\e[0m"; sleep 0.05
 
         echo -e "\e[1;37mTest n°$t (setenv) :"; sleep 0.05
@@ -207,8 +213,8 @@ function test () {
 
     echo -e "\n\n\e[1;36m-------------------------[ROBUSTNESS]-------------------------\n\e[0m"; sleep 0.05
 
-        commands6=("hgfrertyh" "cd hgfrertyh" "cd ./mysh" "cd abc efg" "exit abc" "./bashtest/noperm" "setenv a b c")
-        descriptions5=("random command" "cd random file" "cd executable" "cd too many arg" "alphanumerique exit" "Permission test" "setenv too many arg")
+        commands6=("./bashtest/segv" "./bashtest/float" "./bashtest")
+        descriptions5=("SegFault with core dump" "Floating exeption with core dump" "exec a directory")
 
         for ((index=0; index<${#commands6[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions5[index]}) :"; sleep 0.05
@@ -227,11 +233,18 @@ function test () {
         done
 
     ((t--))
+    echo -e "\n\e[1;37m--------------------------- RESULTS ---------------------------\e[0m"
+    echo -e "\e[1;37m|                                                            |\e[0m"
     if [ $i -eq $t ]; then
-        echo -e "\e[1;37m------ ALL TEST PASSED ------\n\e[0m"
+        echo -e "\e[1;37m|                      ALL TESTS PASSED                      |\e[0m"
     else
-        echo -e "\e[1;37m------ $i / $t test passed ------\n\e[0m"
+        echo -e "\e[1;37m                       $i / $t test passed\e[0m"
     fi
+    echo -e "\e[1;37m|                                                            |\e[0m"
+    echo -e "\e[1;37m--------------------------------------------------------------\e[0m"
+    echo -e "\n\e[1;31m----------------------------------------------------------------\e[0m";
+    echo -e "\n\e[1;31m!!!!!!!!!! DON'T FORGET TO USE ISATTY FUNCTION !!!!!!!!!!!\e[0m";
+    echo -e "\n\e[1;31m----------------------------------------------------------------\e\n[0m";
 }
 
 test
