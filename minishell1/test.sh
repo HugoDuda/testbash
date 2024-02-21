@@ -82,9 +82,11 @@ function test () {
                 echo -e "\e[1;31mFAILURE\n\e[0m"
             fi
             ((t++))
+        rm bashtest/tcsh.txt
+        rm bashtest/mysh.txt
         done
 
-        commands6=("cd ffecvdzevvsd" "cd ./mysh" "cd abc efg")
+        commands6=("cd ffecvdzevvsd" "cd ./mysh" "cd abc def")
         descriptions6=("cd invalid folder" "cd executable" "cd too many argument")
 
         for ((index=0; index<${#commands6[@]}; index++)); do
@@ -99,11 +101,13 @@ function test () {
                 echo -e "\e[1;31mFAILURE\n\e[0m"
             fi
             ((t++))
+        rm bashtest/tcsh.txt
+        rm bashtest/mysh.txt
         done
 
         echo -e "\e[1;37mTest n°$t (cd -) :"; sleep 0.05
-        (echo -e "cd .." && echo -e "cd .." && echo -e "cd -" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
-        (echo -e "cd .." && echo -e "cd .." && echo -e "cd -" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
+        (echo -e "pwd" && echo -e "cd .." && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd /" && echo -e "pwd" && echo -e "cd -" && echo "pwd" && echo -e "cd /bin/" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
+        (echo -e "pwd" && echo -e "cd .." && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd /" && echo -e "pwd" && echo -e "cd -" && echo "pwd" && echo -e "cd /bin/" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
         sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
         if [ $? -eq 0 ]; then
             echo -e "\e[1;32mSUCESS\n\e[0m"
@@ -114,7 +118,6 @@ function test () {
         rm bashtest/tcsh.txt
         rm bashtest/mysh.txt
         ((t++))
-
 
     echo -e "\n\n\e[1;36m-------------------------[BUILTIN EXIT]-------------------------\n\e[0m"; sleep 0.05
 
@@ -190,6 +193,48 @@ function test () {
         rm bashtest/mysh.txt
         ((t++))
 
+        echo -e "\e[1;37mTest n°$t (setenv with special value n°1) :"; sleep 0.05
+        (echo -e "setenv 1bonjour jesuisuntest") | ./mysh 2> bashtest/mysh.txt
+        (echo -e "setenv 1bonjour jesuisuntest") | tcsh 2> bashtest/tcsh.txt
+        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/mysh.txt
+        rm bashtest/tcsh.txt
+        ((t++))
+
+        echo -e "\e[1;37mTest n°$t (setenv with special value n°2) :"; sleep 0.05
+        (echo -e "setenv bon/jour jesuisuntest") | ./mysh 2> bashtest/mysh.txt
+        (echo -e "setenv bon/jour jesuisuntest") | tcsh 2> bashtest/tcsh.txt
+        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/mysh.txt
+        rm bashtest/tcsh.txt
+        ((t++))
+
+        echo -e "\e[1;37mTest n°$t (setenv with special value n°3) :"; sleep 0.05
+        (echo -e "setenv b=onjour jesuisuntest") | ./mysh 2> bashtest/mysh.txt
+        (echo -e "setenv b=onjour jesuisuntest") | tcsh 2> bashtest/tcsh.txt
+        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/mysh.txt
+        rm bashtest/tcsh.txt
+        ((t++))
+
     echo -e "\n\n\e[1;36m-------------------------[TABS AND SPACES]-------------------------\n\e[0m"; sleep 0.05
 
         commands5=("ls " "ls     " "ls   -l" "ls\t" "ls\t\t\t\t\t" "ls\t\t\t\t\t-l" "ls\t -l" "ls  \t\t \t -l" " " "\t")
@@ -211,10 +256,10 @@ function test () {
             ((t++))
         done
 
-    echo -e "\n\n\e[1;36m-------------------------[ROBUSTNESS]-------------------------\n\e[0m"; sleep 0.05
+    echo -e "\n\n\e[1;36m-------------------------[ERROR HANDLING]-------------------------\n\e[0m"; sleep 0.05
 
-        commands6=("./bashtest/segv" "./bashtest/float" "./bashtest")
-        descriptions5=("SegFault with core dump" "Floating exeption with core dump" "exec a directory")
+        commands6=("bashtest/wa" "bashtest/segv" "bashtest/valgrind_output")
+        descriptions5=("Bin not compatible (Lancer sur le docker de la mouli)" "SegFault with core dump" "exec a directory")
 
         for ((index=0; index<${#commands6[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions5[index]}) :"; sleep 0.05
@@ -233,7 +278,7 @@ function test () {
         done
 
     ((t--))
-    echo -e "\n\e[1;37m--------------------------- RESULTS ---------------------------\e[0m"
+    echo -e "\n\e[1;37m--------------------------- RESULTS --------------------------\e[0m"
     echo -e "\e[1;37m|                                                            |\e[0m"
     if [ $i -eq $t ]; then
         echo -e "\e[1;37m|                      ALL TESTS PASSED                      |\e[0m"

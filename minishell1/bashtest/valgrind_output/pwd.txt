@@ -1,15 +1,15 @@
-==15416== Memcheck, a memory error detector
-==15416== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==15416== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==15416== Command: ./mysh
-==15416== 
+==266830== Memcheck, a memory error detector
+==266830== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==266830== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==266830== Command: ./mysh
+==266830== 
 /home/h/p/minishell1
-==15416== 
-==15416== HEAP SUMMARY:
-==15416==     in use at exit: 0 bytes in 0 blocks
-==15416==   total heap usage: 297 allocs, 297 frees, 11,920 bytes allocated
-==15416== 
-==15416== All heap blocks were freed -- no leaks are possible
-==15416== 
-==15416== For lists of detected and suppressed errors, rerun with: -s
-==15416== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==266830== 
+==266830== HEAP SUMMARY:
+==266830==     in use at exit: 0 bytes in 0 blocks
+==266830==   total heap usage: 297 allocs, 297 frees, 12,046 bytes allocated
+==266830== 
+==266830== All heap blocks were freed -- no leaks are possible
+==266830== 
+==266830== For lists of detected and suppressed errors, rerun with: -s
+==266830== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

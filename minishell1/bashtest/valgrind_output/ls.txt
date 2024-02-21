@@ -1,28 +1,27 @@
-==15412== Memcheck, a memory error detector
-==15412== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==15412== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==15412== Command: ./mysh
-==15412== 
+==266820== Memcheck, a memory error detector
+==266820== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==266820== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==266820== Command: ./mysh
+==266820== 
 bashtest
 coding-style-reports.log
-float
+exec
 include
 main.c
 Makefile
 mysh
 obj
-return
 segv
 src
 tester.sh
 tests
 test.sh
-==15412== 
-==15412== HEAP SUMMARY:
-==15412==     in use at exit: 0 bytes in 0 blocks
-==15412==   total heap usage: 297 allocs, 297 frees, 11,919 bytes allocated
-==15412== 
-==15412== All heap blocks were freed -- no leaks are possible
-==15412== 
-==15412== For lists of detected and suppressed errors, rerun with: -s
-==15412== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==266820== 
+==266820== HEAP SUMMARY:
+==266820==     in use at exit: 0 bytes in 0 blocks
+==266820==   total heap usage: 297 allocs, 297 frees, 12,045 bytes allocated
+==266820== 
+==266820== All heap blocks were freed -- no leaks are possible
+==266820== 
+==266820== For lists of detected and suppressed errors, rerun with: -s
+==266820== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
