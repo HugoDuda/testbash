@@ -238,7 +238,7 @@ function test () {
     echo -e "\n\n\e[1;36m-------------------------[TABS AND SPACES]-------------------------\n\e[0m"; sleep 0.05
 
         commands5=("ls " "ls     " "ls   -l" "ls\t" "ls\t\t\t\t\t" "ls\t\t\t\t\t-l" "ls\t -l" "ls  \t\t \t -l" " " "\t")
-        descriptions4=("ls space" "ls spaces" "ls spaces -l" "ls tab" "ls tabs" "ls tabs -l" "ls tab space" "ls tab space" "ls tabs spaces -l" "space" "tab")
+        descriptions4=("ls space" "ls spaces" "ls spaces -l" "ls tab" "ls tabs" "ls tabs -l" "ls tab space" "ls tabs spaces -l" "space" "tab")
 
         for ((index=0; index<${#commands5[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions4[index]}) :"; sleep 0.05
@@ -258,8 +258,20 @@ function test () {
 
     echo -e "\n\n\e[1;36m-------------------------[ERROR HANDLING]-------------------------\n\e[0m"; sleep 0.05
 
-        commands6=("bashtest/wa" "bashtest/segv" "bashtest/valgrind_output")
-        descriptions5=("Bin not compatible (Lancer sur le docker de la mouli)" "SegFault with core dump" "exec a directory")
+        echo -e "\e[1;37mTest n°$t (Bin not compatible) :"; sleep 0.05
+        (echo -e "bashtest/wa") | ./mysh 2> bashtest/mysh.txt
+        sdiff -s bashtest/mysh.txt bashtest/wa.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/mysh.txt
+        ((t++))
+
+        commands6=("bashtest/segv" "bashtest/valgrind_output")
+        descriptions5=("SegFault with core dump" "exec a directory")
 
         for ((index=0; index<${#commands6[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions5[index]}) :"; sleep 0.05
