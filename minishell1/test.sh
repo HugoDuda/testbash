@@ -47,7 +47,7 @@ function test () {
     echo -e "\n\n\e[1;36m-------------------------[BASE TEST]-------------------------\n\e[0m"; sleep 0.05
 
     commands2=("" "ls" "./bashtest/executable" "azertyuioptestabc")
-    descriptions=("Empty" "Simple exec" "run simple command" "wrong simple command")
+    descriptions=("empty" "simple exec" "run simple command" "wrong simple command")
 
         for ((index=0; index<${#commands2[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions[index]}) :"; sleep 0.05
@@ -65,69 +65,23 @@ function test () {
             ((t++))
         done
 
-    echo -e "\n\n\e[1;36m-------------------------[BUILTIN CD]-------------------------\n\e[0m"; sleep 0.05
+    echo -e "\n\n\e[1;36m-------------------------[PATH HANDLING]-------------------------\n\e[0m"; sleep 0.05
 
-        commands3=("cd" "cd bashtest" "cd .." "cd /")
-        descriptions2=("cd" "cd folder" "cd .." "cd /")
-
-        for ((index=0; index<${#commands3[@]}; index++)); do
-            echo -e "\e[1;37mTest n°$t (${descriptions2[index]}) :"; sleep 0.05
-            (echo -e "${commands3[index]}" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
-            (echo -e "${commands3[index]}" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
-            sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+            echo -e "\e[1;37mTest n°$t (unsetenv PATH handling) :"; sleep 0.05
+            echo -e 'unsetenv PATH\nls\npwd' | ./mysh > bashtest/mysh.txt 2>&1
+            sdiff -s bashtest/mysh.txt bashtest/cmdnotfound.txt
             if [ $? -eq 0 ]; then
                 echo -e "\e[1;32mSUCESS\n\e[0m"
                 ((i++))
             else
                 echo -e "\e[1;31mFAILURE\n\e[0m"
             fi
+            rm bashtest/mysh.txt
             ((t++))
-        rm bashtest/tcsh.txt
-        rm bashtest/mysh.txt
-        done
 
-        commands6=("cd ffecvdzevvsd" "cd ./mysh" "cd abc def")
-        descriptions6=("cd invalid folder" "cd executable" "cd too many argument")
-
-        for ((index=0; index<${#commands6[@]}; index++)); do
-            echo -e "\e[1;37mTest n°$t (${descriptions6[index]}) :"; sleep 0.05
-            (echo -e "${commands6[index]}") | ./mysh 2> bashtest/mysh.txt
-            (echo -e "${commands6[index]}") | tcsh 2> bashtest/tcsh.txt
-            sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
-            if [ $? -eq 0 ]; then
-                echo -e "\e[1;32mSUCESS\n\e[0m"
-                ((i++))
-            else
-                echo -e "\e[1;31mFAILURE\n\e[0m"
-            fi
-            ((t++))
-        rm bashtest/tcsh.txt
-        rm bashtest/mysh.txt
-        done
-
-        echo -e "\e[1;37mTest n°$t (cd -) :"; sleep 0.05
-        (echo -e "pwd" && echo -e "cd .." && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd /" && echo -e "pwd" && echo -e "cd -" && echo "pwd" && echo -e "cd /bin/" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
-        (echo -e "pwd" && echo -e "cd .." && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd /" && echo -e "pwd" && echo -e "cd -" && echo "pwd" && echo -e "cd /bin/" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
-        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
-        if [ $? -eq 0 ]; then
-            echo -e "\e[1;32mSUCESS\n\e[0m"
-            ((i++))
-        else
-            echo -e "\e[1;31mFAILURE\n\e[0m"
-        fi
-        rm bashtest/tcsh.txt
-        rm bashtest/mysh.txt
-        ((t++))
-
-    echo -e "\n\n\e[1;36m-------------------------[BUILTIN EXIT]-------------------------\n\e[0m"; sleep 0.05
-
-        commands4=("exit" "exit 84")
-        descriptions3=("exit" "exit 84")
-
-        for ((index=0; index<${#commands4[@]}; index++)); do
-            echo -e "\e[1;37mTest n°$t (${descriptions3[index]}) :"; sleep 0.05
-            echo -e "${commands4[index]}" | ./mysh > bashtest/mysh.txt
-            echo -e "${commands4[index]}" | tcsh > bashtest/tcsh.txt
+            echo -e "\e[1;37mTest n°$t (Change PATH for /bin/) :"; sleep 0.05
+            echo -e 'setenv PATH /bin/\nls\npwd' | ./mysh > bashtest/mysh.txt 2>&1
+            echo -e 'setenv PATH /bin/\nls\npwd' | tcsh > bashtest/tcsh.txt 2>&1
             sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
             if [ $? -eq 0 ]; then
                 echo -e "\e[1;32mSUCESS\n\e[0m"
@@ -138,7 +92,32 @@ function test () {
             rm bashtest/tcsh.txt
             rm bashtest/mysh.txt
             ((t++))
-        done
+
+            echo -e "\e[1;37mTest n°$t (Change PATH for random folder) :"; sleep 0.05
+            echo -e 'setenv PATH /randomfolder/\nls\npwd' | ./mysh > bashtest/mysh.txt 2>&1
+            sdiff -s bashtest/mysh.txt bashtest/cmdnotfound.txt
+            if [ $? -eq 0 ]; then
+                echo -e "\e[1;32mSUCESS\n\e[0m"
+                ((i++))
+            else
+                echo -e "\e[1;31mFAILURE\n\e[0m"
+            fi
+            rm bashtest/mysh.txt
+            ((t++))
+
+            echo -e "\e[1;37mTest n°$t (Exec command path) :"; sleep 0.05
+            echo -e '/bin/ls' | ./mysh > bashtest/mysh.txt 2>&1
+            echo -e '/bin/ls' | tcsh > bashtest/tcsh.txt 2>&1
+            sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+            if [ $? -eq 0 ]; then
+                echo -e "\e[1;32mSUCESS\n\e[0m"
+                ((i++))
+            else
+                echo -e "\e[1;31mFAILURE\n\e[0m"
+            fi
+            rm bashtest/tcsh.txt
+            rm bashtest/mysh.txt
+            ((t++))
 
     echo -e "\n\n\e[1;36m-------------------------[BUILTIN ENV]-------------------------\n\e[0m"; sleep 0.05
 
@@ -235,10 +214,64 @@ function test () {
         rm bashtest/tcsh.txt
         ((t++))
 
+    echo -e "\n\n\e[1;36m-------------------------[BUILTIN CD]-------------------------\n\e[0m"; sleep 0.05
+
+        commands3=("cd" "cd bashtest" "cd .." "cd /")
+        descriptions2=("cd" "cd folder" "cd .." "cd /")
+
+        for ((index=0; index<${#commands3[@]}; index++)); do
+            echo -e "\e[1;37mTest n°$t (${descriptions2[index]}) :"; sleep 0.05
+            (echo -e "${commands3[index]}" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
+            (echo -e "${commands3[index]}" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
+            sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+            if [ $? -eq 0 ]; then
+                echo -e "\e[1;32mSUCESS\n\e[0m"
+                ((i++))
+            else
+                echo -e "\e[1;31mFAILURE\n\e[0m"
+            fi
+            ((t++))
+        rm bashtest/tcsh.txt
+        rm bashtest/mysh.txt
+        done
+
+        commands6=("cd ffecvdzevvsd" "cd ./mysh" "cd abc def")
+        descriptions6=("cd invalid folder" "cd executable" "cd too many argument")
+
+        for ((index=0; index<${#commands6[@]}; index++)); do
+            echo -e "\e[1;37mTest n°$t (${descriptions6[index]}) :"; sleep 0.05
+            (echo -e "${commands6[index]}") | ./mysh 2> bashtest/mysh.txt
+            (echo -e "${commands6[index]}") | tcsh 2> bashtest/tcsh.txt
+            sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+            if [ $? -eq 0 ]; then
+                echo -e "\e[1;32mSUCESS\n\e[0m"
+                ((i++))
+            else
+                echo -e "\e[1;31mFAILURE\n\e[0m"
+            fi
+            ((t++))
+        rm bashtest/tcsh.txt
+        rm bashtest/mysh.txt
+        done
+
+        echo -e "\e[1;37mTest n°$t (cd -) :"; sleep 0.05
+        (echo -e "pwd" && echo -e "cd .." && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd /" && echo -e "pwd" && echo -e "cd -" && echo "pwd" && echo -e "cd /bin/" && echo -e "pwd") | ./mysh > bashtest/mysh.txt
+        (echo -e "pwd" && echo -e "cd .." && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd -" && echo -e "pwd" && echo -e "cd /" && echo -e "pwd" && echo -e "cd -" && echo "pwd" && echo -e "cd /bin/" && echo -e "pwd") | tcsh > bashtest/tcsh.txt
+        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/tcsh.txt
+        rm bashtest/mysh.txt
+        ((t++))
+
     echo -e "\n\n\e[1;36m-------------------------[TABS AND SPACES]-------------------------\n\e[0m"; sleep 0.05
 
-        commands5=("ls " "ls     " "ls   -l" "ls\t" "ls\t\t\t\t\t" "ls\t\t\t\t\t-l" "ls\t -l" "ls  \t\t \t -l" " " "\t")
-        descriptions4=("ls space" "ls spaces" "ls spaces -l" "ls tab" "ls tabs" "ls tabs -l" "ls tab space" "ls tabs spaces -l" "space" "tab")
+        commands5=("ls " "ls     " "ls   -a" "ls\t" "ls\t\t\t\t\t" "ls\t\t\t\t\t-a" "ls\t -a" "ls  \t\t \t -a" " " "\t")
+        descriptions4=("ls space" "ls spaces" "ls spaces -a" "ls tab" "ls tabs" "ls tabs -a" "ls tab space" "ls tabs spaces -a" "space" "tab")
 
         for ((index=0; index<${#commands5[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions4[index]}) :"; sleep 0.05
