@@ -1,0 +1,24 @@
+==302981== Memcheck, a memory error detector
+==302981== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==302981== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==302981== Command: ./mysh
+==302981== 
+randomcmd: Command not found.
+==302997== 
+==302997== HEAP SUMMARY:
+==302997==     in use at exit: 0 bytes in 0 blocks
+==302997==   total heap usage: 391 allocs, 391 frees, 17,770 bytes allocated
+==302997== 
+==302997== All heap blocks were freed -- no leaks are possible
+==302997== 
+==302997== For lists of detected and suppressed errors, rerun with: -s
+==302997== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==302981== 
+==302981== HEAP SUMMARY:
+==302981==     in use at exit: 0 bytes in 0 blocks
+==302981==   total heap usage: 297 allocs, 297 frees, 12,064 bytes allocated
+==302981== 
+==302981== All heap blocks were freed -- no leaks are possible
+==302981== 
+==302981== For lists of detected and suppressed errors, rerun with: -s
+==302981== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
