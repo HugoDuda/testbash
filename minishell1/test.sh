@@ -172,6 +172,20 @@ function test () {
         rm bashtest/mysh.txt
         ((t++))
 
+        echo -e "\e[1;37mTest n°$t (unsetenv with special value n°1) :"; sleep 0.05
+        (echo -e "unsetenv") | ./mysh 2> bashtest/mysh.txt
+        (echo -e "unsetenv") | tcsh 2> bashtest/tcsh.txt
+        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/mysh.txt
+        rm bashtest/tcsh.txt
+        ((t++))
+
         echo -e "\e[1;37mTest n°$t (setenv with special value n°1) :"; sleep 0.05
         (echo -e "setenv 1bonjour jesuisuntest") | ./mysh 2> bashtest/mysh.txt
         (echo -e "setenv 1bonjour jesuisuntest") | tcsh 2> bashtest/tcsh.txt
@@ -203,6 +217,34 @@ function test () {
         echo -e "\e[1;37mTest n°$t (setenv with special value n°3) :"; sleep 0.05
         (echo -e "setenv b=onjour jesuisuntest") | ./mysh 2> bashtest/mysh.txt
         (echo -e "setenv b=onjour jesuisuntest") | tcsh 2> bashtest/tcsh.txt
+        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/mysh.txt
+        rm bashtest/tcsh.txt
+        ((t++))
+
+        echo -e "\e[1;37mTest n°$t (setenv with special value n°4) :"; sleep 0.05
+        echo -e "setenv" | ./mysh | grep -v "^_" | sort > bashtest/mysh.txt
+        env | grep -v "^_" | sort > bashtest/tcsh.txt
+        sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
+        if [ $? -eq 0 ]; then
+            echo -e "\e[1;32mSUCESS\n\e[0m"
+            ((i++))
+        else
+            echo -e "\e[1;31mFAILURE\n\e[0m"
+        fi
+        rm bashtest/tcsh.txt
+        rm bashtest/mysh.txt
+        ((t++))
+
+        echo -e "\e[1;37mTest n°$t (setenv with special value n°5) :"; sleep 0.05
+        (echo -e "setenv a b c") | ./mysh 2> bashtest/mysh.txt
+        (echo -e "setenv a b c") | tcsh 2> bashtest/tcsh.txt
         sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
         if [ $? -eq 0 ]; then
             echo -e "\e[1;32mSUCESS\n\e[0m"
