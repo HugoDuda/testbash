@@ -1,0 +1,1 @@
+bashtest/wa: Exec format error. Wrong Architecture.

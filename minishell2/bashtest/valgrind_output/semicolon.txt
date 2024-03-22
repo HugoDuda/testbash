@@ -1,0 +1,61 @@
+==67409== Memcheck, a memory error detector
+==67409== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==67409== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==67409== Command: ./mysh
+==67409== 
+bashtest
+exec
+include
+Makefile
+mysh
+obj
+src
+test.sh
+/home/h/p/minishell2
+total 104
+drwxr-xr-x. 1 h h   104 Mar 21 21:09 bashtest
+drwxr-xr-x. 1 h h    34 Mar 13 17:40 exec
+drwxr-xr-x. 1 h h    26 Mar 13 17:38 include
+-rwxrwxrwx. 1 h h  1043 Mar 13 22:18 Makefile
+-rwxr-xr-x. 1 h h 74744 Mar 21 21:10 mysh
+drwxr-xr-x. 1 h h   476 Mar 21 21:10 obj
+drwxr-xr-x. 1 h h   476 Mar 20 15:08 src
+-rwxrwxrwx. 1 h h 22261 Mar 21 17:49 test.sh
+zczcez: Command not found.
+==67416== 
+==67416== HEAP SUMMARY:
+==67416==     in use at exit: 60 bytes in 5 blocks
+==67416==   total heap usage: 310 allocs, 305 frees, 15,615 bytes allocated
+==67416== 
+==67416== 20 bytes in 4 blocks are indirectly lost in loss record 1 of 2
+==67416==    at 0x484280F: malloc (vg_replace_malloc.c:442)
+==67416==    by 0x40363E: my_str_to_word_array (my_str_to_word_array.c:31)
+==67416==    by 0x404459: semicolon (semicolon.c:52)
+==67416==    by 0x4026DC: wich_exec (main.c:167)
+==67416==    by 0x40279C: main (main.c:187)
+==67416== 
+==67416== 60 (40 direct, 20 indirect) bytes in 1 blocks are definitely lost in loss record 2 of 2
+==67416==    at 0x484280F: malloc (vg_replace_malloc.c:442)
+==67416==    by 0x403582: my_str_to_word_array (my_str_to_word_array.c:27)
+==67416==    by 0x404459: semicolon (semicolon.c:52)
+==67416==    by 0x4026DC: wich_exec (main.c:167)
+==67416==    by 0x40279C: main (main.c:187)
+==67416== 
+==67416== LEAK SUMMARY:
+==67416==    definitely lost: 40 bytes in 1 blocks
+==67416==    indirectly lost: 20 bytes in 4 blocks
+==67416==      possibly lost: 0 bytes in 0 blocks
+==67416==    still reachable: 0 bytes in 0 blocks
+==67416==         suppressed: 0 bytes in 0 blocks
+==67416== 
+==67416== For lists of detected and suppressed errors, rerun with: -s
+==67416== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==67409== 
+==67409== HEAP SUMMARY:
+==67409==     in use at exit: 0 bytes in 0 blocks
+==67409==   total heap usage: 240 allocs, 240 frees, 11,068 bytes allocated
+==67409== 
+==67409== All heap blocks were freed -- no leaks are possible
+==67409== 
+==67409== For lists of detected and suppressed errors, rerun with: -s
+==67409== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
