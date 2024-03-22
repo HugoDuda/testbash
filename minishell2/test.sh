@@ -403,13 +403,13 @@ function test () {
 
     echo -e "\n\n\e[1;36m-------------------------[PIPE]-------------------------\n\e[0m"; sleep 0.05
 
-        commands7=("ls | grep src" "cat Makefile | wc -l" "ls -a | sort -nrk 5" "ps -u $USER -o pid,vsz,comm | sort -nrk 2 | head -n 5")
-        descriptions7=("Simple pipe n°1" "Simple pipe n°2" "Simple pipe n°3" "Advanced pipe")
+        commands7=("ls | grep src" "cat Makefile | wc -l" "ls -a | sort -nrk 5" "ps -u $USER -o pid,vsz,comm | sort -nrk 2 | head -n 5" "cat bashtest/big_input.txt | grep .")
+        descriptions7=("Simple pipe n°1" "Simple pipe n°2" "Simple pipe n°3" "Advanced pipe" "Big input")
 
         for ((index=0; index<${#commands7[@]}; index++)); do
             echo -e "\e[1;37mTest n°$t (${descriptions7[index]}) :"; sleep 0.05
-            echo -e "${commands7[index]}" | ./mysh 1> bashtest/mysh.txt
-            echo -e "${commands7[index]}" | tcsh 1> bashtest/tcsh.txt
+            timeout 10s echo -e "${commands7[index]}" | ./mysh 1> bashtest/mysh.txt
+            timeout 10s echo -e "${commands7[index]}" | tcsh 1> bashtest/tcsh.txt
             sdiff -s bashtest/mysh.txt bashtest/tcsh.txt
             if [ $? -eq 0 ]; then
                 echo -e "\e[1;32mSUCCESS\n\e[0m"
