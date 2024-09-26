@@ -21,7 +21,7 @@ Les tests se compose des éléments suivants :
 Pour utiliser ce script de tests, suivez les étapes ci-dessous :
 Clonez ce repository dans la racine de votre projet en utilisant la commande suivante :
 ```bash
-git clone <URL_DU_REPOSITORY>
+git clone git@github.com:HugoDuda/testbash.git
 ```
 Mettez ensuite tout les éléments à la racine de votre projet (L'endroit du Makefile qui compile le projet)
 Lancer le script test.sh après avoir donné les permissions d'exécution :
