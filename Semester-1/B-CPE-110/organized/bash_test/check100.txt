@@ -1,0 +1,7 @@
+add WIRE usb, ACTUATOR button, DEVICE recorder, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine, DEVICE mine
+
+sort ID
+disp
+sort TYPE -r
+disp
+exit
