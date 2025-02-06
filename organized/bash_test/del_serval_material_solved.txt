@@ -1,5 +1,0 @@
-[1;33mWorkshop >> [1;0mWIRE n°0 - "name" added.
-SENSOR n°1 - "name2" added.
-[1;33mWorkshop >> [1;0mWIRE n°0 - "name" deleted.
-SENSOR n°1 - "name2" deleted.
-[1;33mWorkshop >> [1;0m

@@ -1,3 +1,0 @@
-add WIRE name
-disp
-exit

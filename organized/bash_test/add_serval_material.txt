@@ -1,2 +1,0 @@
-add WIRE name, SENSOR name2, ACTUATOR name3
-exit
