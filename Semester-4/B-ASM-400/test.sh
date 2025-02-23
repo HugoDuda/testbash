@@ -5,7 +5,7 @@ RED="\e[31m"
 GREEN="\e[32m"
 RESET="\e[0m"
 
-exercises=("strlen" "strchr" "strrchr" "memset" "memcpy" "strcmp" "memmove" "strncmp" "strcasecmp" "strstr" "strpbrk" "strcspn")
+exercises=("strlen" "strchr" "strrchr" "memset" "memcpy" "strcmp" "memmove" "strncmp" "strcasecmp" "strstr" "strpbrk" "strcspn" "ffs")
 echo -e "${BOLD}Building libasm.so${RESET}"
 make re 1> /dev/null
 if [ $? -ne 0 ]; then

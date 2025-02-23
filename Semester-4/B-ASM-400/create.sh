@@ -25,9 +25,9 @@ int main(void)
     printf("Test 1: Normal search (character found)\n");
     printf("-> %s\n", strchr("Hello World", 'W'));
     printf("Test 2: Character not found\n");
-    printf("-> %s\n", strchr("Hello, World!", 'z'));
+    printf("-> %s\n", strchr("Hello World", 'z'));
     printf("Test 3: Search for null terminator\n");
-    printf("-> %s\n", strchr("Hello, World!", '\0'));
+    printf("-> %s\n", strchr("Hello World", '\0'));
     printf("Test 4: Empty string\n");
     printf("-> %s\n", strchr("", 'a'));
     printf("Test 5: Null pointer\n");
@@ -44,9 +44,9 @@ int main(void)
     printf("Test 1: Normal search (last occurrence)\n");
     printf("-> %s\n", strrchr("Hello World", 'l'));
     printf("Test 2: Character not found\n");
-    printf("-> %s\n", strrchr("Hello, World!", 'z'));
+    printf("-> %s\n", strrchr("Hello World", 'z'));
     printf("Test 3: Search for null terminator\n");
-    printf("-> %s\n", strrchr("Hello, World!", '\0'));
+    printf("-> %s\n", strrchr("Hello World", '\0'));
     printf("Test 4: Empty string\n");
     printf("-> %s\n", strrchr("", 'a'));
     printf("Test 5: Null pointer\n");
@@ -87,12 +87,12 @@ extern void *memcpy(void *dest, const void *src, size_t n);
 int main(void)
 {
     printf("Test 1: Normal copy\n");
-    char src[] = "HelloWorld";
+    char src[] = "Hello World";
     char dest[20] = {0};
     printf("Before: %s\n", dest);
     printf("-> %s\n", (char *)memcpy(dest, src, strlen(src) + 1));
     printf("Test 2: Zero length copy (no change)\n");
-    char buffer[20] = "HelloWorld";
+    char buffer[20] = "Hello World";
     printf("Before: %s\n", buffer);
     printf("-> %s\n", (char *)memcpy(buffer, "ABCDE", 0));
     printf("Test 3: Binary data copy\n");
@@ -147,7 +147,7 @@ extern void *memmove(void *, const void *, size_t);
 void test_non_overlap()
 {
     printf("Test 1: Non-overlapping copy\n");
-    char src[] = "HelloWorld";
+    char src[] = "Hello World";
     char dest[20] = {0};
     void *res = memmove(dest, src, strlen(src) + 1);
     printf("-> %s\n", dest);
@@ -184,14 +184,14 @@ void test_same_pointer()
 void test_error_null_dest()
 {
     printf("Test 6: Error handling - NULL destination\n");
-    char src[] = "HelloWorld";
+    char src[] = "Hello World";
     void *res = memmove(NULL, src, 5);
     printf("-> %s\n", res);
 }
 void test_error_null_src()
 {
     printf("Test 7: Error handling - NULL source\n");
-    char dest[20] = "HelloWorld";
+    char dest[20] = "Hello World";
     void *res = memmove(dest, NULL, 5);
     printf("-> %s\n", res);
 }
@@ -245,9 +245,9 @@ int main(void)
     printf("Test 2: Different strings, full comparison\n");
     printf("-> %d\n", strncmp("Apple", "Banana", 6));
     printf("Test 3: Partial comparison, equal prefix\n");
-    printf("-> %d\n", strncmp("HelloWorld", "HelloThere", 5));
+    printf("-> %d\n", strncmp("Hello World", "HelloThere", 5));
     printf("Test 4: Partial comparison, non equal beyond prefix\n");
-    printf("-> %d\n", strncmp("HelloWorld", "HelloThere", 7));
+    printf("-> %d\n", strncmp("Hello World", "HelloThere", 7));
     printf("Test 5: n = 0 (should be equal)\n");
     printf("-> %d\n", strncmp("Hello", "World", 0));
     printf("Test 6: Empty string vs non-empty\n");
@@ -303,18 +303,19 @@ int main(void)
     const char *haystack;
     const char *needle;
     char *result;
+
     printf("Test 1: Substring present\n");
-    haystack = "Hello, World!";
+    haystack = "Hello World";
     needle = "World";
     result = strstr(haystack, needle);
     printf("-> %s\n", result ? result : "NULL");
     printf("Test 2: Substring not present\n");
-    haystack = "Hello, World!";
+    haystack = "Hello World";
     needle = "test";
     result = strstr(haystack, needle);
     printf("-> %s\n", result ? result : "NULL");
     printf("Test 3: Empty needle\n");
-    haystack = "Hello, World!";
+    haystack = "Hello World";
     needle = "";
     result = strstr(haystack, needle);
     printf("-> %s\n", result ? result : "NULL");
@@ -343,17 +344,17 @@ int main(void)
     char *result;
 
     printf("Test 1: Found character\n");
-    haystack = "Hello, World!";
+    haystack = "Hello World";
     accept = "XYWZ";
     result = strpbrk(haystack, accept);
     printf("-> %s\n", result ? result : "NULL");
     printf("Test 2: No matching character\n");
-    haystack = "Hello, World!";
+    haystack = "Hello World";
     accept = "xyz";
     result = strpbrk(haystack, accept);
     printf("-> %s\n", result ? result : "NULL");
     printf("Test 3: Empty accept string\n");
-    haystack = "Hello, World!";
+    haystack = "Hello World";
     accept = "";
     result = strpbrk(haystack, accept);
     printf("-> %s\n", result ? result : "NULL");
@@ -373,7 +374,7 @@ int main(void)
     result = strpbrk(haystack, accept);
     printf("-> %s\n", result ? result : "NULL");
     printf("Test 7: NULL accept\n");
-    haystack = "Hello, World!";
+    haystack = "Hello World";
     accept = NULL;
     result = strpbrk(haystack, accept);
     printf("-> %s\n", result ? result : "NULL");
@@ -389,18 +390,19 @@ int main(void)
     const char *s;
     const char *reject;
     size_t result;
+
     printf("Test 1: No reject characters present\n");
     s = "abcdef";
     reject = "xyz";
     result = strcspn(s, reject);
     printf("-> %zu\n", result);
     printf("Test 2: Reject character present in the middle\n");
-    s = "Hello, World!";
+    s = "Hello World";
     reject = ", ";
     result = strcspn(s, reject);
     printf("-> %zu\n", result);
     printf("Test 3: Reject character is the first character\n");
-    s = "Hello, World!";
+    s = "Hello World";
     reject = "H";
     result = strcspn(s, reject);
     printf("-> %zu\n", result);
@@ -410,10 +412,30 @@ int main(void)
     result = strcspn(s, reject);
     printf("-> %zu\n", result);
     printf("Test 5: reject is empty\n");
-    s = "Hello, World!";
+    s = "Hello World";
     reject = "";
     result = strcspn(s, reject);
     printf("-> %zu\n", result);
+    return 0;
+}
+EOF
+cat << 'EOF' > bashtest/main/ffs_main.c
+#include <stdio.h>
+#include <strings.h>
+extern int ffs(int i);
+int main(void) {
+    printf("Test 1: ffs(0)\n");
+    printf("-> %d\n", ffs(0));
+    printf("Test 2: ffs(1)\n");
+    printf("-> %d\n", ffs(1));
+    printf("Test 3: ffs(2)\n");
+    printf("-> %d\n", ffs(2));
+    printf("Test 4: ffs(4)\n");
+    printf("-> %d\n", ffs(4));
+    printf("Test 5: ffs(18)\n");
+    printf("-> %d\n", ffs(18));
+    printf("Test 6: ffs(-1)\n");
+    printf("-> %d\n", ffs(-1));
     return 0;
 }
 EOF
@@ -458,10 +480,10 @@ Test 4: Null pointer input
 EOF
 echo -e "Test 1: Normal copy
 Before: 
--> HelloWorld
+-> Hello World
 Test 2: Zero length copy (no change)
-Before: HelloWorld
--> HelloWorld
+Before: Hello World
+-> Hello World
 Test 3: Binary data copy
 -> 1 2 3 4 5 Test 4: Error handling - NULL destination
 -> (nil)
@@ -488,7 +510,7 @@ Test 8: Error handling - NULL second argument
 Test 9: Error handling - both arguments NULL
 -> 0" > bashtest/output/strcmp_output.txt
 echo -e "Test 1: Non-overlapping copy
--> HelloWorld
+-> Hello World
 Test 2: Overlap with destination after source
 -> abcabcdeij
 Test 3: Overlap with destination before source
@@ -512,7 +534,7 @@ Test 2: Different strings, full comparison
 Test 3: Partial comparison, equal prefix
 -> 0
 Test 4: Partial comparison, non equal beyond prefix
--> 3
+-> -52
 Test 5: n = 0 (should be equal)
 -> 0
 Test 6: Empty string vs non-empty
@@ -548,17 +570,17 @@ Test 9: Error handling - NULL second argument
 Test 10: Error handling - both arguments NULL
 -> 0" > bashtest/output/strcasecmp_output.txt
 echo -e "Test 1: Substring present
--> World!
+-> World
 Test 2: Substring not present
 -> NULL
 Test 3: Empty needle
--> Hello, World!
+-> Hello World
 Test 4: Empty haystack, non-empty needle
 -> NULL
 Test 5: Both haystack and needle empty
 -> " > bashtest/output/strstr_output.txt
 echo -e "Test 1: Found character
--> World!
+-> World
 Test 2: No matching character
 -> NULL
 Test 3: Empty accept string
@@ -580,4 +602,16 @@ Test 3: Reject character is the first character
 Test 4: s is empty
 -> 0
 Test 5: reject is empty
--> 13" > bashtest/output/strcspn_output.txt
+-> 11" > bashtest/output/strcspn_output.txt
+echo -e "Test 1: ffs(0)
+-> 0
+Test 2: ffs(1)
+-> 1
+Test 3: ffs(2)
+-> 2
+Test 4: ffs(4)
+-> 3
+Test 5: ffs(18)
+-> 2
+Test 6: ffs(-1)
+-> 1" > bashtest/output/ffs_output.txt
