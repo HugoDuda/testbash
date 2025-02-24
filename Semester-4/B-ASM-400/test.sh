@@ -5,7 +5,7 @@ RED="\e[31m"
 GREEN="\e[32m"
 RESET="\e[0m"
 
-exercises=("strlen" "strchr" "strrchr" "memset" "memcpy" "strcmp" "memmove" "strncmp" "strcasecmp" "strstr" "strpbrk" "strcspn" "ffs")
+exercises=("strlen" "strchr" "strrchr" "memset" "memcpy" "strcmp" "memmove" "strncmp" "strcasecmp" "strstr" "strpbrk" "strcspn" "ffs" "index" "rindex" "strfry" "memfrob" "syscall")
 echo -e "${BOLD}Building libasm.so${RESET}"
 make re 1> /dev/null
 if [ $? -ne 0 ]; then
@@ -22,7 +22,7 @@ for ex in "${exercises[@]}"; do
         echo -e "${RED}src/${ex}.asm not found.${RESET}"
         continue
     fi
-    gcc -fno-builtin bashtest/main/"${ex}"_main.c -o a.out 2> /dev/null
+    gcc bashtest/main/"${ex}"_main.c -o a.out 2> /dev/null
     if [ $? -ne 0 ]; then
         echo -e "${RED}Compilation of bashtest/main/${ex}_main.c failed.${RESET}"
         continue

@@ -303,7 +303,6 @@ int main(void)
     const char *haystack;
     const char *needle;
     char *result;
-
     printf("Test 1: Substring present\n");
     haystack = "Hello World";
     needle = "World";
@@ -390,7 +389,6 @@ int main(void)
     const char *s;
     const char *reject;
     size_t result;
-
     printf("Test 1: No reject characters present\n");
     s = "abcdef";
     reject = "xyz";
@@ -436,6 +434,72 @@ int main(void) {
     printf("-> %d\n", ffs(18));
     printf("Test 6: ffs(-1)\n");
     printf("-> %d\n", ffs(-1));
+    return 0;
+}
+EOF
+cat << 'EOF' > bashtest/main/index_main.c
+#include <stdio.h>
+#include <strings.h>
+extern char *index(const char *, int);
+int main(void)
+{
+    printf("Test 1: Normal search (character found)\n");
+    printf("-> %s\n", index("Hello World", 'W'));
+    printf("Test 2: Character not found\n");
+    printf("-> %s\n", index("Hello World", 'z'));
+    printf("Test 3: Search for null terminator\n");
+    printf("-> %s\n", index("Hello World", '\0'));
+    printf("Test 4: Empty string\n");
+    printf("-> %s\n", index("", 'a'));
+    printf("Test 5: Null pointer\n");
+    printf("-> %s\n", index(NULL, 'a'));
+    return 0;
+}
+EOF
+cat << 'EOF' > bashtest/main/rindex_main.c
+#include <stdio.h>
+#include <strings.h>
+extern char *rindex(const char *, int);
+int main(void)
+{
+    printf("Test 1: Normal search (last occurrence)\n");
+    printf("-> %s\n", rindex("Hello World", 'l'));
+    printf("Test 2: Character not found\n");
+    printf("-> %s\n", rindex("Hello World", 'z'));
+    printf("Test 3: Search for null terminator\n");
+    printf("-> %s\n", rindex("Hello World", '\0'));
+    printf("Test 4: Empty string\n");
+    printf("-> %s\n", rindex("", 'a'));
+    printf("Test 5: Null pointer\n");
+    printf("-> %s\n", rindex(NULL, 'a'));
+    return 0;
+}
+EOF
+cat << 'EOF' > bashtest/main/strfry_main.c
+#include <stdio.h>
+#include <string.h>
+extern char *strfry(char *);
+int main(void)
+{
+    char *test = strdup("bonjourzceczczcsqczcscc");
+    char *random = strfry(test);
+
+    if (!strcmp(test, random))
+        printf("-> String is ramdomized\n");
+    else
+        printf("-> String not randomized\n");
+    return 0;
+}
+EOF
+cat << 'EOF' > bashtest/main/memfrob_main.c
+int main(void)
+{
+    return 0;
+}
+EOF
+cat << 'EOF' > bashtest/main/syscall_main.c
+int main(void)
+{
     return 0;
 }
 EOF
@@ -615,3 +679,26 @@ Test 5: ffs(18)
 -> 2
 Test 6: ffs(-1)
 -> 1" > bashtest/output/ffs_output.txt
+echo -e "Test 1: Normal search (character found)
+-> World
+Test 2: Character not found
+-> (null)
+Test 3: Search for null terminator
+-> 
+Test 4: Empty string
+-> (null)
+Test 5: Null pointer
+-> (null)" > bashtest/output/index_output.txt
+echo -e "Test 1: Normal search (last occurrence)
+-> ld
+Test 2: Character not found
+-> (null)
+Test 3: Search for null terminator
+-> 
+Test 4: Empty string
+-> (null)
+Test 5: Null pointer
+-> (null)" > bashtest/output/rindex_output.txt
+echo -e "-> String is ramdomized" > bashtest/output/strfry_output.txt
+echo -e "" > bashtest/output/memfrob_output.txt
+echo -e "" > bashtest/output/syscall_output.txt
