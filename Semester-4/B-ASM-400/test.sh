@@ -22,12 +22,12 @@ for ex in "${exercises[@]}"; do
         echo -e "${RED}src/${ex}.asm not found.${RESET}"
         continue
     fi
-    gcc bashtest/main/"${ex}"_main.c -o a.out 2> /dev/null
+    gcc -fno-builtin bashtest/main/"${ex}"_main.c -o a.out 2> /dev/null
     if [ $? -ne 0 ]; then
         echo -e "${RED}Compilation of bashtest/main/${ex}_main.c failed.${RESET}"
         continue
     fi
-    LD_PRELOAD=$(pwd)/libasm.so ./a.out > "$TMP_OUTPUT"
+    LD_PRELOAD=./libasm.so ./a.out > "$TMP_OUTPUT"
     EXPECTED="bashtest/output/${ex}_output.txt"
     if [ ! -f "$EXPECTED" ]; then
         echo -e "${RED}Expected file $EXPECTED not found.{RESET}"

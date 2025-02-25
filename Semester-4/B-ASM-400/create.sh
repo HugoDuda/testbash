@@ -484,6 +484,7 @@ int main(void)
     char *test = strdup("bonjourzceczczcsqczcscc");
     char *random = strfry(test);
 
+    printf("%s\n", random);
     if (!strcmp(test, random))
         printf("-> String is ramdomized\n");
     else
@@ -492,14 +493,31 @@ int main(void)
 }
 EOF
 cat << 'EOF' > bashtest/main/memfrob_main.c
+#include <stdio.h>
+#include <string.h>
+extern void *memfrob(void *s, size_t n);
 int main(void)
 {
+    char str[] = "Hello World";
+    printf("Test 1: Original string\n");
+    printf("-> %s\n", str);
+    memfrob(str, strlen(str));
+    printf("Test 2: After memfrob (obfuscated)\n-> Random value\n");
+    memfrob(str, strlen(str));
+    printf("Test 3: After memfrob again (restored)\n");
+    printf("-> %s\n", str);
     return 0;
 }
 EOF
 cat << 'EOF' > bashtest/main/syscall_main.c
+#include <stdio.h>
+#include <string.h>
+extern long syscall(long number, long arg0, long arg1, long arg2, long arg3, long arg4, long arg5);
 int main(void)
 {
+    const char *msg = "Hello World\n";
+    printf("Test: Write syscall\n");
+    printf("return value: %ld\n", syscall(1, 1, (long)msg, strlen(msg), 0, 0, 0));
     return 0;
 }
 EOF
@@ -700,5 +718,12 @@ Test 4: Empty string
 Test 5: Null pointer
 -> (null)" > bashtest/output/rindex_output.txt
 echo -e "-> String is ramdomized" > bashtest/output/strfry_output.txt
-echo -e "" > bashtest/output/memfrob_output.txt
-echo -e "" > bashtest/output/syscall_output.txt
+echo -e "Test 1: Original string
+-> Hello World
+Test 2: After memfrob (obfuscated)
+-> Random value
+Test 3: After memfrob again (restored)
+-> Hello World" > bashtest/output/memfrob_output.txt
+echo -e "Test: Write syscall
+Hello World
+return value: 12" > bashtest/output/syscall_output.txt
